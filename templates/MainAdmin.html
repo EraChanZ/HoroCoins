@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form method = 'post'>
+        {% csrf_token %}
+        <input type = 'submit' value = 'Панель управления пользователями' name = 'panelcon'>
+    </form>
+    <form method = 'post'>
+        {% csrf_token %}
+        <input type = 'submit' value = 'Список всех заказов' name = 'paneltov'>
+    </form>
+</body>
+</html>

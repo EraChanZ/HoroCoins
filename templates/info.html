@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<img width = '300' src = {{ tovar.url }}><br/>
+<h3>{{ tovar.name }}</h3>
+{{ tovar.desc }}<br/>
+<h4>Осталось этого товара: {{ tovar.count }}</h4>
+<h4>Цена: {{ tovar.price }}</h4>
+<form method="post">
+    {% csrf_token %}
+    <input type = 'submit' value = 'купить' name = 'buy'>
+</form>
+</body>
+</html>

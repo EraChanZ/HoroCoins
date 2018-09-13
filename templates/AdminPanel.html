@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form method = 'post'>
+        {% csrf_token %}
+        кого зарегать?<br/>
+        FirstName: <input type = 'text' name = 'first'><br/>
+        LastName: <input type = 'text' name = 'last'><br/>
+        <input type = 'submit'>
+    </form>
+    {% for user in users %}
+        Логин:{{ user.username }}, Имя и фамилия: {{ user.first_name }}, Пароль: {{ user.last_name }}, Счёт : {{ user.email }}<br/>
+        <form method = 'post'>
+            {% csrf_token %}
+            Сколько начислить :<input type = 'number' name = 'pop'><br/>
+            За что :<input type = 'text' name = 'reason'><br/>
+            <input type = 'submit' value = 'Выполнить' name = {{ user.username }} />
+        </form>
+        <br/>
+    {% endfor %}
+</body>
+</html>

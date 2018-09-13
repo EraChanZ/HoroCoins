@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<style>
+    .block {
+        margin-left: 1000px;
+    }
+</style>
+    <div class = 'block'>
+        Добро пожаловать , {{ curuser.first_name }}<br/>
+        Счёт : {{ curuser.email }}
+        <form method = 'post'>
+            {% csrf_token %}
+            <input type = 'submit' value = 'Личный кабинет' name = 'lk'>
+        </form>
+    </div>
+    {% for tovar in tovars %}
+        <div>
+        <img width = '120' height = '120' src = {{ tovar.url }}><br/>
+        {{ tovar.name }}<br/>
+        Цена: {{ tovar.price }}<br/>
+            <form method = 'post'>
+                {% csrf_token %}
+                <input type = 'submit' value = 'подробнее' name = {{ tovar.name }}>
+            </form>
+        </div>
+    {% endfor %}
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <style>
+        .block {
+            margin-left: 1100px;
+        }
+    </style>
+    <div class = 'block'>
+        Добро пожаловать : {{ user.first_name }}<br/>
+        Ваш логин: {{ user.username }}<br/>
+        Кол-во ХороКоинов : {{ user.email }}
+    </div>
+    <div>
+        <h3>История ваших заказов :</h3>
+        {% for zakaz in zakazs %}
+        Товар : {{ zakaz.tovar }}<br/>
+        {% endfor %}
+    </div>
+    <div>
+        <h3>История начислений :</h3>
+        {% for story in history %}
+        Начислино : {{ story.howmuch }} Хорокоинов<br/>
+        За : {{ story.reason }}<br/>
+        {% endfor %}
+    </div>
+</body>
+</html>
