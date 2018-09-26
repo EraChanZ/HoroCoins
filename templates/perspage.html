@@ -15,10 +15,13 @@
         Ваш логин: {{ user.username }}<br/>
         Кол-во ХороКоинов : {{ user.email }}
     </div>
+    <form action = '/menu/'>
+        <input type = 'submit' value = 'Назад в меню'>
+    </form>
     <div>
         <h3>История ваших заказов :</h3>
         {% for zakaz in zakazs %}
-        Товар : {{ zakaz.tovar }}<br/>
+        Товар : {{ zakaz.tovar }} ID: {{ zakaz.idd }}<br/>
         {% endfor %}
     </div>
     <div>

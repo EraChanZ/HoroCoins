@@ -103,6 +103,7 @@ def adminPan(request):
         if request.user.has_perm('Superuser status'):
             panel = request.POST.get('panelcon')
             paneltov = request.POST.get('paneltov')
+
             if paneltov:
                 return redirect('/spisok-zakazov/')
             if panel:
@@ -118,6 +119,14 @@ def panel(request):
             users = User.objects.all()
             first = request.POST.get('first')
             last = request.POST.get('last')
+            search = request.POST.get('search')
+            if search:
+                sps = []
+                for user in users:
+                    if search.lower() in user.first_name.lower():
+                        sps.append(user)
+                if sps:
+                    return render(request, 'AdminPanel.html', context={'users': sps})
             for user in users:
                 if request.POST.get(user.username):
                     if request.POST.get('reason') and request.POST.get('pop'):
