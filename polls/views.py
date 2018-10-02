@@ -31,10 +31,16 @@ def EnterPage(request):
         kusers.append(user)
     top_users = []
     if users:
-        for i in kusers:
-            max = findmax(kusers)
-            top_users.append(max)
-            kusers.remove(max)
+        if len(kusers) < 11:
+            for i in kusers:
+                max = findmax(kusers)
+                top_users.append(max)
+                kusers.remove(max)
+        else:
+            for i in range(10):
+                max = findmax(kusers)
+                top_users.append(max)
+                kusers.remove(max)
     if enter:
         if request.user.is_authenticated:
             return redirect('/menu/')
