@@ -13,11 +13,33 @@ import random
 from polls.models import *
 global kontovar
 # Create your views here.
+def findmax(array):
+    maxx = 0
+    top_user = {}
+    for element in array:
+        if int(element.email) > maxx:
+            maxx = int(element.email)
+            top_user = element
+    return top_user
 def EnterPage(request):
     enter = request.POST.get('Enter')
+    users = User.objects.all()
+    kusers = []
+    for user in users:
+        if user.has_perm('Superuser status'):
+            continue
+        kusers.append(user)
+    top_users = []
+    if users:
+        for i in kusers:
+            max = findmax(kusers)
+            top_users.append(max)
+            kusers.remove(max)
     if enter:
+        if request.user.is_authenticated:
+            return redirect('/menu/')
         return redirect('/login/')
-    return (render(request,'Enter.html'))
+    return (render(request,'Enter.html', context={'top':top_users}))
 @csrf_exempt
 def loginn(request):
     passw = request.POST.get('pass')
@@ -60,7 +82,11 @@ def menu(request):
         tovars = Tovar.objects.all()
         lk = request.POST.get('lk')
         for tovar in tovars:
-            if request.POST.get(tovar.name):
+            #k = tovar.name.replace(' ','')
+            if request.POST:
+                for i in request.POST:
+                    l = i
+            if request.POST.get(tovar.url):
                 kontovar = tovar
                 return redirect('/info/')
         if lk:
@@ -73,6 +99,10 @@ def menu(request):
         return redirect('/main/')
 def lk(request):
     if request.user.is_authenticated:
+        ext = request.POST.get('exit')
+        if ext:
+            logout(request)
+            return redirect('/main/')
         history = History.objects.all()
         zakazs = zakaz.objects.all()
         spisok = []

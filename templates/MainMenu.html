@@ -3,40 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 </head>
 <body>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 <style>
     .block {
-        margin-left: 1000px;
+        margin-left: 1500px;
     }
 </style>
-<center>
-    <div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Horo-Coin/Site</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/main/">Главная</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/perspage/">Личный кабинет</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="/menu/">Интернет-магазин<span class="sr-only">(current)</span></a>
+      </li>
+    </ul>
+  </div>
+</nav>
+    <div class="block">
         Добро пожаловать , {{ curuser.first_name }}<br/>
         Счёт : {{ curuser.email }}
-        <form method = 'post'>
-            {% csrf_token %}
-            <input type = 'submit' value = 'Личный кабинет' name = 'lk'>
-        </form>
     </div>
-</center>
+    <div class="card-deck" style = 'margin-left:40px;margin-right: 40px;margin-top:40px;'>
     {% for tovar in tovars %}
-        <div class="col-md-1">
-            <div class="card">
-                <img width = '120' height = '120' class="card-img-top" src={{ tovar.url }}/>
+            <div style="max-width: 12rem;" class="card">
+                <img style = 'width:12rem;height:8rem;' src={{ tovar.url }} class="card-img-top"/>
                 <div class="card-body">
                     <h5 class="card-title">{{ tovar.name }}</h5>
                     <p class="card-text">Цена: {{ tovar.price }}</p>
                     <form method = 'post'>
                         {% csrf_token %}
-                        <input class="btn btn-primary" type = 'submit' value = 'подробнее' name = {{ tovar.name }} />
+                        <input class="btn btn-primary card-img-bottom" type = 'submit' value = 'подробнее' name = {{ tovar.url }} />
                     </form>
                 </div>
             </div>
-        </div>
     {% endfor %}
+    </div>
 </body>
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 </html>
