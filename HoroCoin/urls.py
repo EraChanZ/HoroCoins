@@ -17,13 +17,16 @@ from django.contrib import admin
 from django.urls import path
 from polls.views import *
 urlpatterns = [
+    path('', EnterPage, name='home'),
     path('admin/', admin.site.urls),
-    path('main/',EnterPage),
+    #path('main/',EnterPage),
     path('login/',loginn),
     path('admin-panel/',adminPan),
     path('control-users/',panel),
     path('menu/',menu),
     path('perspage/',lk),
     path('spisok-zakazov/',product),
-    path('info/',info)
+    path('info/',info),
+    path('task-panel/', tasks),
+    path('tasks/',earncoin)
 ]

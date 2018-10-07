@@ -18,13 +18,16 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" href="/main/">Главная</a>
+        <a class="nav-link" href="/">Главная</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/perspage/">Личный кабинет</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/menu/">Интернет-магазин</a>
+      </li>
+        <li class="nav-item">
+        <a class="nav-link" href="/tasks/">Задания</a>
       </li>
     </ul>
   </div>
@@ -37,9 +40,6 @@
 <form method="post">
     {% csrf_token %}
     <input type = 'submit' value = 'купить' name = 'buy'>
-</form>
-<form action = '/menu/'>
-    <input type = 'button' value = 'назад'/>
 </form>
 </body>
 </html>

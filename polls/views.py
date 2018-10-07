@@ -14,13 +14,18 @@ from polls.models import *
 global kontovar
 # Create your views here.
 def findmax(array):
-    maxx = 0
+    maxx = -1
     top_user = {}
     for element in array:
         if int(element.email) > maxx:
             maxx = int(element.email)
             top_user = element
     return top_user
+def earncoin(request):
+    if request.user.is_authenticated:
+        return render(request,'taski.html')
+    else:
+        return redirect('/')
 def EnterPage(request):
     enter = request.POST.get('Enter')
     users = User.objects.all()
@@ -81,7 +86,7 @@ def info(request):
                     kontovar.save()
         return render(request,'info.html',context = {'tovar':kontovar})
     else:
-        return redirect('/main/')
+        return redirect('/')
 def menu(request):
     global kontovar
     if request.user.is_authenticated:
@@ -102,13 +107,13 @@ def menu(request):
         else:
             return render(request, 'MainMenu.html', context={'curuser': request.user, 'tovars': [['Hello']]})
     else:
-        return redirect('/main/')
+        return redirect('/')
 def lk(request):
     if request.user.is_authenticated:
         ext = request.POST.get('exit')
         if ext:
             logout(request)
-            return redirect('/main/')
+            return redirect('/')
         history = History.objects.all()
         zakazs = zakaz.objects.all()
         spisok = []
@@ -121,7 +126,7 @@ def lk(request):
                 kek.append(zaz)
         return render(request,'perspage.html',context={'user':request.user,'history':spisok,'zakazs':kek})
     else:
-        return redirect('/main/')
+        return redirect('/')
 def product(request):
     if request.user.is_authenticated:
         if request.user.has_perm('Superuser status'):
@@ -133,13 +138,17 @@ def product(request):
         else:
             return HttpResponse('Недостаточно прав')
     else:
-        return redirect('/main/')
+        return redirect('/')
+def tasks(request):
+    pass
 def adminPan(request):
     if request.user.is_authenticated:
         if request.user.has_perm('Superuser status'):
             panel = request.POST.get('panelcon')
             paneltov = request.POST.get('paneltov')
-
+            paneltask = request.POST.get('paneltask')
+            if paneltask:
+                return redirect('/task-panel/')
             if paneltov:
                 return redirect('/spisok-zakazov/')
             if panel:
@@ -148,13 +157,14 @@ def adminPan(request):
         else:
             return HttpResponse('Недостаточно прав')
     else:
-        return redirect('/main/')
+        return redirect('/')
 def panel(request):
     if request.user.is_authenticated:
         if request.user.has_perm('Superuser status'):
             users = User.objects.all()
             first = request.POST.get('first')
             last = request.POST.get('last')
+            gradd = request.POST.get('grade')
             search = request.POST.get('search')
             if search:
                 sps = []
@@ -172,20 +182,28 @@ def panel(request):
                         user.save()
                         h = History(user = user.username,reason=request.POST.get('reason'),howmuch = int(request.POST.get('pop')))
                         h.save()
-            if first and last:
+            if first and last and gradd:
                 l = True
                 for user in users:
                     if user.first_name == first + ' ' + last:
                         l = False
                 if l:
                     password = PasswordGen()
-                    if len(users) > 1:
-                        user = User.objects.create_user(username = 'student_'+str(len(users)),password = password,email = '0', first_name = first + ' ' + last, last_name = password)
+                    if len(users) > 0:
+                        print('kllklklk')
+                        grd = passwords(userr='student_'+str(len(users)),passw=password,first_n_last=first+' '+last)
+                        grd.save()
+                        user = User.objects.create_user(username = 'student_'+str(len(users)),password = password,email = '0', first_name = first + ' ' + last, last_name = gradd)
                         user.save()
+                        #grd = grade(grad=gradd, username = 'student_'+str(len(users)),password = password,email = '0', first_name = first + ' ' + last, last_name = password)
+                        #grd.save()
                     else:
-                        user = User.objects.create_user(username = 'student_1',password = password,email = '0', first_name = first + ' ' + last, last_name = password)
+                        grd = passwords(userr='student_1', passw=password, first_n_last=first+' '+last)
+                        grd.save()
+                        user = User.objects.create_user(username = 'student_1',password = password,email = '0', first_name = first + ' ' + last, last_name = gradd)
                         user.save()
-
+                        #grd = grade(grad=gradd, username = 'student_1',password = password,email = '0', first_name = first + ' ' + last, last_name = password)
+                        #grd.save()
             if users:
                 nusers = []
                 for user in users:
@@ -199,7 +217,7 @@ def panel(request):
         else:
             return HttpResponse('У вас нет прав доступа')
     else:
-        return redirect('/main/')
+        return redirect('/')
 def PasswordGen():
     passw = ''
     for i in range(10):

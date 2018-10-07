@@ -21,3 +21,15 @@ class zakaz(models.Model):
     idd = models.CharField(max_length=100, default='id')
     def __str__(self):
         return 'Заказчик :' + self.user + ' Товар: ' + self.tovar
+class passwords(models.Model):
+    passw = models.CharField(max_length=100,default = '9')
+    userr = models.CharField(max_length=100, default='user')
+    first_n_last = models.CharField(max_length=100, default='user')
+    def __str__(self):
+        return self.userr + ' ' + self.passw + ' ' + self.first_n_last
+class Task(models.Model):
+    name = models.CharField(max_length=500, default='boo')
+    count = models.IntegerField(default = 1)
+    max_users = models.IntegerField(default = 1)
+    full_text = models.CharField(max_length=500, default='boo')
+    classes = models.CharField(max_length=500, default='dd')
