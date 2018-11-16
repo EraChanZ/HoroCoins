@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h3>Логотип</h3>
+    <form method = 'post'>
+        {% csrf_token %}
+        <input type= "submit" value = 'Войти' name = 'Enter'>
+    </form>
+<ul>
+    <h3>Топ юзеров</h3>
+{% for user in top %}
+    <li>{{ user.first_name }} Баланс: {{ user.email }} <img width =  '25px' src="https://png.icons8.com/color/40/000000/expensive.png"></li>
+{% endfor %}
+</ul>
+</body>
+</html>

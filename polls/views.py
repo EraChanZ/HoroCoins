@@ -140,7 +140,13 @@ def product(request):
     else:
         return redirect('/')
 def tasks(request):
-    pass
+    if request.user.is_authenticated and request.user.has_perm('Superuser status'):
+        tasks = Task.objects.all()
+        taski = []
+        for task in tasks:
+            if task.owner == request.user.username:
+                taski.append(task)
+        return render(request,taski)
 def adminPan(request):
     if request.user.is_authenticated:
         if request.user.has_perm('Superuser status'):

@@ -33,3 +33,9 @@ class Task(models.Model):
     max_users = models.IntegerField(default = 1)
     full_text = models.CharField(max_length=500, default='boo')
     classes = models.CharField(max_length=500, default='dd')
+    owner = models.CharField(max_length=500, default='dd')
+    kodik = models.CharField(max_length=500, default='dd')
+class vending(models.Model):
+    casenum = models.CharField(max_length=100, default='1')
+    tovname = models.CharField(max_length=500, default='case')
+    kod = models.CharField(max_length=500, default='123')
