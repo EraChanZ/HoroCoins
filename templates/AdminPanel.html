@@ -21,6 +21,13 @@
         {% csrf_token %}
         <input type = 'text' name = 'search'><input type = 'submit' value = 'поиск' ><br/>
     </form>
+    <br/>
+    <form method="post">
+        {% csrf_token %}
+        Начислить <input type='number' name="howmuch"> хорокоинов на весь <input  type="number" name = 'clas'/> класс по причине: <input type="text" name="why"/><br/>
+        <input type="submit" name = 'zmak'>
+    </form>
+    <br/>
     {% for user in users %}
         Логин:{{ user.username }}, Имя и фамилия: {{ user.first_name }}, Класс: {{ user.last_name }}, Счёт : {{ user.email }}<br/>
         <form method = 'post'>

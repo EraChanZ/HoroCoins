@@ -5,21 +5,43 @@
     <title>Title</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 </head>
-<body>
+<p>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">Horo-Coin/Site</a>
+<style>
+    .leftimg {
+    float:left; /* Выравнивание по левому краю */
+    margin: 7px 70px 7px 0; /* Отступы вокруг картинки */
+   }
+    body {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+}
+    .passe-partout {
+        padding: 5px; /* Ширина паспарту */
+        background: #eeeeee; /* Цвет фона  паспарту */
+        border: 2px solid #eeeeee;
+        margin-top: 20px;
+        margin-left: 100px;
+    }
+    .text-size {
+        width: 1300px;
+    }
+    .nav-item {
+            font-size: 20px;
+            margin-right: 10px;
+            margin-left: 10px;
+        }
+</style>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" style="margin-right: 60px" href="#"><b>Horo-Coin/Store</b></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="/">Главная</a>
-      </li>
       <li class="nav-item">
         <a class="nav-link" href="/perspage/">Личный кабинет</a>
       </li>
@@ -29,17 +51,25 @@
         <li class="nav-item">
         <a class="nav-link" href="/tasks/">Задания</a>
       </li>
+        <li class="nav-item">
+        <b style="margin-left: 600px;font-size: 20px">{{ user.first_name }}</b>
+      </li>
+        <li class="nav-item">
+            <p style="margin-left: 50px; font-size: 20px;">Баланс : <b>{{ balance }}</b><img style="margin-left: 10px" src="https://img.icons8.com/metro/50/000000/coins.png"height="30"></p>
+      </li>
+
     </ul>
   </div>
 </nav>
-<img width = '300' src = {{ tovar.url }}><br/>
-<h3>{{ tovar.name }}</h3>
-{{ tovar.desc }}<br/>
-<h4>Осталось этого товара: {{ tovar.count }}</h4>
-<h4>Цена: {{ tovar.price }}</h4>
+<h3 style="margin-left: 500px; margin-top: 25px">{{ tovar.name }}</h3>
+<p>
+<img class="passe-partout leftimg" width = '500'src = {{ tovar.url }} >
+<p class = 'text-size' style="margin-top: 50px">{{ tovar.desc }}</p>
+<h4><b>{{ tovar.price }}</b> <img style="margin-left: 10px" src="https://img.icons8.com/metro/50/000000/coins.png"height="30"></h4>
+<p style="font-size: 15px">(Осталось: {{ tovar.count }})</p>
 <form method="post">
     {% csrf_token %}
-    <input type = 'submit' value = 'купить' name = 'buy'>
+    <input type = 'submit' value = 'купить' name = 'buy' class="btn btn-primary" style="margin-top: 6px">
 </form>
 </body>
 </html>

@@ -23,7 +23,7 @@ def findmax(array):
     return top_user
 def earncoin(request):
     if request.user.is_authenticated:
-        return render(request,'taski.html')
+        return render(request,'taski.html',context={'balance':request.user.email})
     else:
         return redirect('/')
 def EnterPage(request):
@@ -35,6 +35,22 @@ def EnterPage(request):
             continue
         kusers.append(user)
     top_users = []
+    passw = request.POST.get('pass')
+    user = request.POST.get('login')
+    if passw and user:
+        print('goood')
+        user = authenticate(username=user, password=passw)
+        if user is not None:
+            print('hhhhelllo')
+            if user.is_active:
+                print('hello')
+                login(request, user)
+                return redirect('/menu/')
+            else:
+                print('bliin')
+                ...
+        else:
+            print('kekee')
     if users:
         if len(kusers) < 11:
             for i in kusers:
@@ -52,24 +68,6 @@ def EnterPage(request):
         return redirect('/login/')
     return (render(request,'Enter.html', context={'top':top_users}))
 @csrf_exempt
-def loginn(request):
-    passw = request.POST.get('pass')
-    user = request.POST.get('login')
-    if passw and user:
-        print('goood')
-        user = authenticate(username=user, password=passw)
-        if user is not None:
-            print('hhhhelllo')
-            if user.is_active:
-                print('hello')
-                login(request, user)
-                return redirect('/menu/')
-            else:
-                print('bliin')
-                ...
-        else:
-            print('kekee')
-    return (render(request,'Login.html'))
 def info(request):
     global kontovar
     if request.user.is_authenticated:
@@ -84,7 +82,7 @@ def info(request):
                     z.save()
                     kontovar.count -= 1
                     kontovar.save()
-        return render(request,'info.html',context = {'tovar':kontovar})
+        return render(request,'info.html',context = {'tovar':kontovar,'balance':request.user.email})
     else:
         return redirect('/')
 def menu(request):
@@ -103,7 +101,7 @@ def menu(request):
         if lk:
             return redirect('/perspage/')
         if tovars:
-            return render(request, 'MainMenu.html', context = {'curuser':request.user,'tovars':tovars})
+            return render(request, 'MainMenu.html', context = {'curuser':request.user,'tovars':tovars,'balance':request.user.email})
         else:
             return render(request, 'MainMenu.html', context={'curuser': request.user, 'tovars': [['Hello']]})
     else:
@@ -124,7 +122,7 @@ def lk(request):
         for zaz in zakazs:
             if zaz.user == request.user.first_name:
                 kek.append(zaz)
-        return render(request,'perspage.html',context={'user':request.user,'history':spisok,'zakazs':kek})
+        return render(request,'perspage.html',context={'user':request.user,'history':spisok,'zakazs':kek,'balance':request.user.email})
     else:
         return redirect('/')
 def product(request):
@@ -172,6 +170,22 @@ def panel(request):
             last = request.POST.get('last')
             gradd = request.POST.get('grade')
             search = request.POST.get('search')
+            if request.POST.get('zmak'):
+                print('zmak')
+                clas = request.POST.get('clas')
+                howmuch = request.POST.get('howmuch')
+                why = request.POST.get('why')
+                print(clas,why,howmuch)
+                if clas and howmuch and why:
+                    for user in users:
+                        if str(user.last_name) == str(clas):
+                            print('URAAAAA VSE NORM')
+                            k = int(user.email)
+                            k += int(howmuch)
+                            user.email = str(k)
+                            user.save()
+                            h = History(user=user.username, reason=why,howmuch=int(howmuch))
+                            h.save()
             if search:
                 sps = []
                 for user in users:

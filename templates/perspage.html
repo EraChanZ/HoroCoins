@@ -1,5 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#" style="margin-right: 60px"><b>Horo-Coin/Store</b></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/perspage/">Личный кабинет<span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/menu/">Интернет-магазин</a>
+      </li>
+        <li class="nav-item">
+        <a class="nav-link" href="/tasks/">Задания</a>
+      </li>
+        <li class="nav-item">
+        <b style="margin-left: 600px; font-size: 20px">{{ user.first_name }}</b>
+      </li>
+        <li class="nav-item">
+            <p style="margin-left: 50px; font-size: 20px;">Баланс : <b>{{ balance }}</b><img style="margin-left: 10px" src="https://img.icons8.com/metro/50/000000/coins.png"height="30"></p>
+      </li>
+        <li class="nav-item">
+        <form method = 'post'>
+            {% csrf_token %}
+            <input style = "margin-left: 50px" type = 'submit' value = 'Выйти' name = 'exit' class="btn btn-info">
+        </form>
+      </li>
+    </ul>
+  </div>
+</nav>
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -12,52 +44,55 @@
     <style>
         .block {
             margin-left: 1100px;
-        }
-    </style>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">Horo-Coin/Site</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="/">Главная</a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="/perspage/">Личный кабинет<span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/menu/">Интернет-магазин</a>
-      </li>
-        <li class="nav-item">
-        <a class="nav-link" href="/tasks/">Задания</a>
-      </li>
-    </ul>
-  </div>
-</nav>
-    <div class = 'block'>
-        Добро пожаловать : {{ user.first_name }}<br/>
-        Ваш логин: {{ user.username }}<br/>
-        Кол-во ХороКоинов : {{ user.email }} <img src="https://png.icons8.com/flat_round/50/000000/cheap-2.png" width = '32px'><br/>
-        Ваш класс : {{ user.last_name }}
-        <form method = 'post'>
-            {% csrf_token %}
-            <input type = 'submit' value = 'Выйти' name = 'exit'>
-        </form>
-    </div>
-    <div>
+        }
+        .nav-item {
+            font-size: 20px;
+            margin-right: 10px;
+            margin-left: 10px;
+        }
+        .layer1 {
+            background-color: #efefef; /* Цвет фона слоя */
+            border-radius: 20px;
+            float: left; /* Обтекание по правому краю */
+            width: 800px; /* Ширина слоя */
+            margin: 60px 60px 60px;
+            padding: 25px 35px 60px;
+            height: 1080px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        }
+       .layer2 {
+            background-color: #efefef; /* Цвет фона слоя */
+            padding: 25px 35px 15px; /* Поля вокруг текста */
+            width: 800px; /* Ширина слоя */
+            border-radius: 20px;
+            float: right; /* Обтекание по правому краю */
+            margin: 60px 60px 60px;
+            height: 1080px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+       }
+        body {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+}
+    </style>
+
+    <div class="layer1">
         <h3>История ваших заказов :</h3>
+    <ul>
         {% for zakaz in zakazs %}
-        Товар : {{ zakaz.tovar }} ID: {{ zakaz.idd }}<br/>
+            <li>
+            Товар : {{ zakaz.tovar }}<br/>
+            ID: <b>{{ zakaz.idd }}</b><br/>
+            </li>
         {% endfor %}
+    </ul>
     </div>
-    <div>
+    <div class="layer2">
         <h3>История начислений :</h3>
         {% for story in history %}
-        Начислино : {{ story.howmuch }} Хорокоинов<br/>
-        За : {{ story.reason }}<br/>
+        Начислено : {{ story.howmuch }} <img style="margin-left: 7px" src="https://img.icons8.com/metro/50/000000/coins.png"height="20"><br/>
+            За : <u>{{ story.reason }}</u><br/>
         {% endfor %}
     </div>
 </body>

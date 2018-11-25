@@ -20,7 +20,6 @@ urlpatterns = [
     path('', EnterPage, name='home'),
     path('admin/', admin.site.urls),
     #path('main/',EnterPage),
-    path('login/',loginn),
     path('admin-panel/',adminPan),
     path('control-users/',panel),
     path('menu/',menu),
