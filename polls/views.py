@@ -202,6 +202,13 @@ def panel(request):
                         user.save()
                         h = History(user = user.username,reason=request.POST.get('reason'),howmuch = int(request.POST.get('pop')))
                         h.save()
+                    elif request.POST.get('rsn') and request.POST.get('otn'):
+                        k = int(user.email)
+                        k -= int(request.POST.get('otn'))
+                        user.email = str(k)
+                        user.save()
+                        h = History(user=user.username, reason=request.POST.get('rsn'),howmuch=int('-'+request.POST.get('otn')))
+                        h.save()
             if first and last and gradd:
                 l = True
                 for user in users:

@@ -34,7 +34,13 @@
             {% csrf_token %}
             Сколько начислить :<input type = 'number' name = 'pop'><br/>
             За что :<input type = 'text' name = 'reason'><br/>
-            <input type = 'submit' value = 'Выполнить' name = {{ user.username }} />
+            <input type = 'submit' value = 'Выполнить' name = {{ user.username }} /><br/>
+        </form>
+        <form method="post">
+            {% csrf_token %}
+            Сколько отнять :<input type = 'number' name = 'otn'><br/>
+            За что :<input type = 'text' name = 'rsn'><br/>
+            <input type = 'submit' value = 'Выполнить' name = {{ user.username }} /><br/>
         </form>
         <br/>
     {% endfor %}
