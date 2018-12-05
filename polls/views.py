@@ -78,7 +78,7 @@ def info(request):
                     request.user.email = str(int(request.user.email) - kontovar.price)
                     request.user.save()
                     kl = PasswordGen()
-                    z = zakaz(user = request.user.first_name, tovar = kontovar.name, idd = kl)
+                    z = zakaz(user = request.user.first_name, tovar = kontovar.name, idd = kl, kartinka=kontovar.url)
                     z.save()
                     kontovar.count -= 1
                     kontovar.save()

@@ -19,6 +19,7 @@ class zakaz(models.Model):
     user = models.CharField(max_length=100, default='user')
     tovar = models.CharField(max_length=100, default='name')
     idd = models.CharField(max_length=100, default='id')
+    kartinka = models.CharField(max_length=100, default='url')
     def __str__(self):
         return 'Заказчик :' + self.user + ' Товар: ' + self.tovar
 class passwords(models.Model):
