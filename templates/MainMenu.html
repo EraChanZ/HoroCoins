@@ -56,11 +56,16 @@
         <li class="nav-item">
         <a class="nav-link" href="https://docs.google.com/spreadsheets/d/1ndGJI0FgSMpspUyK2l_DKTcCAhIQtYmfMzl7ug81urU/edit#gid=1476329653" target="_blank">Как заработать?</a>
       </li>
+        {% if has_perm%}
         <li class="nav-item">
-        <b style="margin-left: 600px; font-size: 20px">{{ user.first_name }}</b>
+        <a class="nav-link" href="/teacher/">Учительская панель<span class="sr-only"></span></a>
+      </li>
+        {% endif %}
+        <li class="nav-item">
+        <b style="margin-left: 300px; font-size: 20px">{{ curuser.first_name }} {{ curuser.last_name }}</b>
       </li>
         <li class="nav-item">
-            <p style="margin-left: 50px; font-size: 20px;">Баланс : <b>{{ balance }}</b><img style="margin-left: 10px" src="https://img.icons8.com/metro/50/000000/coins.png"height="30"></p>
+            <p style="margin-left: 50px; font-size: 20px;">Баланс : <b>{{ curuser.profile.balance }}</b><img style="margin-left: 10px" src="https://img.icons8.com/metro/50/000000/coins.png"height="30"></p>
       </li>
     </ul>
   </div>

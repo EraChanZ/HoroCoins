@@ -6,6 +6,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate , login
 from django.conf import settings
 from django.shortcuts import redirect
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 # Create your views here.
@@ -74,15 +76,15 @@ def info(request):
         buy = request.POST.get('buy')
         if buy:
             if kontovar.count > 0:
-                if int(request.user.email) - kontovar.price >= 0:
-                    request.user.email = str(int(request.user.email) - kontovar.price)
+                if int(request.user.profile.balance) - kontovar.price >= 0:
+                    request.user.profile.balance = int(request.user.profile.balance) - kontovar.price
                     request.user.save()
                     kl = PasswordGen()
                     z = zakaz(user = request.user.first_name, tovar = kontovar.name, idd = kl, kartinka=kontovar.url)
                     z.save()
                     kontovar.count -= 1
                     kontovar.save()
-        return render(request,'info.html',context = {'tovar':kontovar,'balance':request.user.email})
+        return render(request,'info.html',context = {'tovar':kontovar,'balance':request.user.email,'has_perm':request.user.has_perm('Superuser status')})
     else:
         return redirect('/')
 def menu(request):
@@ -101,17 +103,26 @@ def menu(request):
         if lk:
             return redirect('/perspage/')
         if tovars:
-            return render(request, 'MainMenu.html', context = {'curuser':request.user,'tovars':tovars,'balance':request.user.email})
+            return render(request, 'MainMenu.html', context = {'curuser':request.user,'tovars':tovars,'has_perm':request.user.has_perm('Superuser status')})
         else:
-            return render(request, 'MainMenu.html', context={'curuser': request.user, 'tovars': [['Hello']]})
+            return render(request, 'MainMenu.html', context={'curuser': request.user, 'tovars': [['Hello']],'has_perm':request.user.has_perm('Superuser status')})
     else:
         return redirect('/')
 def lk(request):
     if request.user.is_authenticated:
         ext = request.POST.get('exit')
+        okbtn = request.POST.get('subm')
         if ext:
             logout(request)
             return redirect('/')
+        if okbtn:
+            fpass = request.POST.get('firspass')
+            spass = request.POST.get('confpass')
+            print('Its new one '+fpass+'   '+spass)
+            if fpass and spass:
+                if fpass == spass and len(fpass) > 5:
+                    request.user.set_password(fpass)
+                    request.user.save()
         history = History.objects.all()
         zakazs = zakaz.objects.all()
         spisok = []
@@ -122,7 +133,7 @@ def lk(request):
         for zaz in zakazs:
             if zaz.user == request.user.first_name:
                 kek.append(zaz)
-        return render(request,'perspage.html',context={'user':request.user,'history':spisok,'zakazs':kek,'balance':request.user.email})
+        return render(request,'perspage.html',context={'user':request.user,'history':spisok,'zakazs':kek,'balance':request.user.email,'has_perm':request.user.has_perm('Superuser status')})
     else:
         return redirect('/')
 def product(request):
@@ -170,6 +181,34 @@ def panel(request):
             last = request.POST.get('last')
             gradd = request.POST.get('grade')
             search = request.POST.get('search')
+            zaregat_vseh = request.POST.get('zaregat')
+            if zaregat_vseh:
+                all_names = open('./templates/Students.txt')
+                print(all_names)
+                count = len(users)
+                for stroka in all_names:
+                    count += 1
+                    password = PasswordGen()
+                    info = [i.strip() for i in stroka.split(',')]
+                    print(info)
+                    print('-----------------------------------------------------------------------------------------------')
+                    if len(users) > 0:
+                        try:
+                            print('kllklklk')
+                            grd = passwords(userr='student_'+str(count),passw=password,first_n_last=info[1])
+                            grd.save()
+                            user = User.objects.create_user(username = 'student_'+str(count),password = password,email = '0', first_name = info[1], last_name = info[2])
+                            user.save()
+                        except:
+                            pass
+                    else:
+                        try:
+                            grd = passwords(userr='student_1', passw=password, first_n_last=info[1])
+                            grd.save()
+                            user = User.objects.create_user(username = 'student_1',password = password,email = '0', first_name = info[1], last_name = info[2])
+                            user.save()
+                        except:
+                            pass
             if request.POST.get('zmak'):
                 print('zmak')
                 clas = request.POST.get('clas')
@@ -180,9 +219,9 @@ def panel(request):
                     for user in users:
                         if str(user.last_name) == str(clas):
                             print('URAAAAA VSE NORM')
-                            k = int(user.email)
+                            k = int(user.profile.balance)
                             k += int(howmuch)
-                            user.email = str(k)
+                            user.profile.balance = k
                             user.save()
                             h = History(user=user.username, reason=why,howmuch=int(howmuch))
                             h.save()
@@ -196,38 +235,44 @@ def panel(request):
             for user in users:
                 if request.POST.get(user.username):
                     if request.POST.get('reason') and request.POST.get('pop'):
-                        k = int(user.email)
+                        k = int(user.profile.balance)
                         k += int(request.POST.get('pop'))
-                        user.email = str(k)
+                        user.profile.balance = k
                         user.save()
                         h = History(user = user.username,reason=request.POST.get('reason'),howmuch = int(request.POST.get('pop')))
                         h.save()
                     elif request.POST.get('rsn') and request.POST.get('otn'):
-                        k = int(user.email)
+                        k = int(user.profile.balance)
                         k -= int(request.POST.get('otn'))
-                        user.email = str(k)
+                        user.profile.balance = k
                         user.save()
                         h = History(user=user.username, reason=request.POST.get('rsn'),howmuch=int('-'+request.POST.get('otn')))
                         h.save()
             if first and last and gradd:
                 l = True
                 for user in users:
-                    if user.first_name == first + ' ' + last:
+                    if user.first_name == first and user.last_name == last:
                         l = False
                 if l:
+                    print('keywordkeywordkeywordkeyword   '+gradd)
                     password = PasswordGen()
                     if len(users) > 0:
                         print('kllklklk')
                         grd = passwords(userr='student_'+str(len(users)),passw=password,first_n_last=first+' '+last)
                         grd.save()
-                        user = User.objects.create_user(username = 'student_'+str(len(users)),password = password,email = '0', first_name = first + ' ' + last, last_name = gradd)
+                        user = User.objects.create_user(username = 'student_'+str(len(users)),password = password,email = '0', first_name = first , last_name = last)
+                        user.profile.balance = 0
+                        user.profile.grade=gradd
                         user.save()
+
                         #grd = grade(grad=gradd, username = 'student_'+str(len(users)),password = password,email = '0', first_name = first + ' ' + last, last_name = password)
                         #grd.save()
                     else:
                         grd = passwords(userr='student_1', passw=password, first_n_last=first+' '+last)
                         grd.save()
-                        user = User.objects.create_user(username = 'student_1',password = password,email = '0', first_name = first + ' ' + last, last_name = gradd)
+                        user = User.objects.create_user(username = 'student_1',password = password,email = '0', first_name = first, last_name = last)
+                        user.profile.balance = 0
+                        user.profile.grade = gradd
                         user.save()
                         #grd = grade(grad=gradd, username = 'student_1',password = password,email = '0', first_name = first + ' ' + last, last_name = password)
                         #grd.save()
@@ -245,9 +290,16 @@ def panel(request):
             return HttpResponse('У вас нет прав доступа')
     else:
         return redirect('/')
+def teachpanel(request):
+    if request.user.has_perm('Superuser status') and request.user.is_authenticated:
+        return render(request,'teacherpanel.html',context={'user': request.user,'has_perm':request.user.has_perm('Superuser status')})
+    else:
+        return HttpResponse('Недостаточно прав')
+def earnpan(request):
+    return render(request,'kakzarabotat.html')
 def PasswordGen():
     passw = ''
-    for i in range(10):
-        a = random.choice(list('1234567890abcdefghigklmnopqrstuvyxwzABCDEFGHIGKLMNOPQRSTUVYXWZ'))
+    for i in range(6):
+        a = random.choice(list('12345678abcdzABCPRST'))
         passw += a
     return passw

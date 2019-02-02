@@ -17,6 +17,10 @@
         Класс: <input type = 'text' name = 'grade'><br/>
         <input type = 'submit'>
     </form>
+    <form method="post">
+        {% csrf_token %}
+        <input value='зарегать всех' name="zaregat" type="submit"/>
+    </form>
     <form method = 'post'>
         {% csrf_token %}
         <input type = 'text' name = 'search'><input type = 'submit' value = 'поиск' ><br/>
@@ -29,7 +33,7 @@
     </form>
     <br/>
     {% for user in users %}
-        Логин:{{ user.username }}, Имя и фамилия: {{ user.first_name }}, Класс: {{ user.last_name }}, Счёт : {{ user.email }}<br/>
+        Логин:{{ user.username }}, Имя и фамилия: {{ user.first_name }} {{ user.last_name }}, Класс: {{ user.profile.grade }}, Счёт : {{ user.profile.balance }}<br/>
         <form method = 'post'>
             {% csrf_token %}
             Сколько начислить :<input type = 'number' name = 'pop'><br/>

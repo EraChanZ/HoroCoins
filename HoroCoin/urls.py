@@ -27,5 +27,7 @@ urlpatterns = [
     path('spisok-zakazov/',product),
     path('info/',info),
     path('task-panel/', tasks),
-    path('tasks/',earncoin)
+    path('tasks/',earncoin),
+    path('teacher/',teachpanel),
+    path('earnmoney/',earnpan)
 ]
