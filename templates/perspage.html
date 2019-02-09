@@ -31,7 +31,10 @@
       </li>
         {% endif %}
         <li class="nav-item">
-        <b style="margin-left: 300px; font-size: 20px">{{ user.first_name }} {{ user.last_name }}</b>
+        <b style="margin-left: 300px; font-size: 20px">{{ user.first_name}} {{ user.last_name }}</b>
+      </li>
+    <li class="nav-item">
+            <p style="margin-left: 10px; font-size: 20px;">ID : <b>{{ user.id }}</b></p>
       </li>
         <li class="nav-item">
             <p style="margin-left: 10px; font-size: 20px;">Баланс : <b>{{ user.profile.balance }}</b><img style="margin-left: 10px" src="https://img.icons8.com/metro/50/000000/coins.png"height="30"></p>
@@ -141,6 +144,7 @@
 }
     </style>
 <dialog style='width: 500px; height: 500px; margin-top:100px'>
+    <button id="close">Закрыть</button>
     <form method="post">
         {% csrf_token %}
         <center><h3>Сменить пароль</h3></center>
@@ -148,7 +152,6 @@
         <center><input name='confpass' type="password" placeholder="Вписать еще раз" class="sdvig"/></center>
         <center><input type = 'submit' value = 'ОК' name = 'subm' class="btn btn-info sdvig"></center>
     </form>
-  <button id="close">Закрыть</button>
 </dialog>
     <div class="layer1">
         <h3 style="margin-bottom: 30px">История ваших заказов :</h3>
@@ -187,12 +190,12 @@
 <script type = text/javascript>
     var dialog = document.querySelector('dialog');
     document.querySelector('#show').onclick = function() {
-        document.getElementById("body").classList.add('smth');
+        //document.getElementById("body").classList.add('smth');
         console.log('kek');
         dialog.show();
     };
     document.querySelector('#close').onclick = function() {
-        document.getElementById("body").classList.remove('smth');
+        //document.getElementById("body").classList.remove('smth');
         dialog.close();
     };
 </script>

@@ -292,7 +292,25 @@ def panel(request):
         return redirect('/')
 def teachpanel(request):
     if request.user.has_perm('Superuser status') and request.user.is_authenticated:
-        return render(request,'teacherpanel.html',context={'user': request.user,'has_perm':request.user.has_perm('Superuser status')})
+        if request.POST.get('gtv'):
+            name = request.POST.get('usr')
+            amount = request.POST.get('amount')
+            reason = request.POST.get('rsn')
+            if name and amount and reason:
+                found = User.objects.filter(id=name)
+                if found:
+                    found[0].profile.balance += int(amount)
+                    found[0].save()
+                    return render(request, 'teacherpanel.html',
+                                  context={'error': 'Успешно!', 'user': request.user,
+                                           'has_perm': request.user.has_perm('Superuser status'), 'type': 's'})
+                else:
+                    return render(request, 'teacherpanel.html',
+                                  context={'error': 'Не найдено учеников с таким ID', 'user': request.user,
+                                           'has_perm': request.user.has_perm('Superuser status'), 'type': 'e'})
+            else:
+                return render(request, 'teacherpanel.html',context={'error':'Вы должны заполнить все поля','user': request.user, 'has_perm': request.user.has_perm('Superuser status'),'type':'e'})
+        return render(request,'teacherpanel.html',context={'error':'','user': request.user,'has_perm':request.user.has_perm('Superuser status')})
     else:
         return HttpResponse('Недостаточно прав')
 def earnpan(request):
