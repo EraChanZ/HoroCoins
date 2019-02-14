@@ -301,6 +301,9 @@ def teachpanel(request):
                 if found:
                     found[0].profile.balance += int(amount)
                     found[0].save()
+                    h = History(user=found[0].username, reason=reason,
+                                howmuch=int(amount))
+                    h.save()
                     return render(request, 'teacherpanel.html',
                                   context={'error': 'Успешно!', 'user': request.user,
                                            'has_perm': request.user.has_perm('Superuser status'), 'type': 's'})

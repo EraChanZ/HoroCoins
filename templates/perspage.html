@@ -31,19 +31,13 @@
       </li>
         {% endif %}
         <li class="nav-item">
-        <b style="margin-left: 300px; font-size: 20px">{{ user.first_name}} {{ user.last_name }}</b>
+        <b style="margin-left: 150px; font-size: 20px">{{ user.first_name}} {{ user.last_name }}</b>
       </li>
     <li class="nav-item">
             <p style="margin-left: 10px; font-size: 20px;">ID : <b>{{ user.id }}</b></p>
       </li>
         <li class="nav-item">
             <p style="margin-left: 10px; font-size: 20px;">Баланс : <b>{{ user.profile.balance }}</b><img style="margin-left: 10px" src="https://img.icons8.com/metro/50/000000/coins.png"height="30"></p>
-      </li>
-        <li class="nav-item">
-        <form method = 'post'>
-            {% csrf_token %}
-            <input style = "margin-left: 10px" type = 'submit' value = 'Выйти' name = 'exit' class="btn btn-info">
-        </form>
       </li>
     <li class="nav-item">
         <button id="show" class="butt"><img src="http://icons.iconarchive.com/icons/double-j-design/diagram-free/128/settings-icon.png" width="35px"></button>
@@ -151,6 +145,10 @@
         <center><input name='firspass' type="password" placeholder="Новый пароль" class="sdvig"/><br/></center>
         <center><input name='confpass' type="password" placeholder="Вписать еще раз" class="sdvig"/></center>
         <center><input type = 'submit' value = 'ОК' name = 'subm' class="btn btn-info sdvig"></center>
+    </form>
+    <form method = 'post'>
+            {% csrf_token %}
+        <center><input style = "margin-top:170px;width:150px;height: 40px;" type = 'submit' value = 'Выйти' name = 'exit' class="btn btn-info"></center>
     </form>
 </dialog>
     <div class="layer1">

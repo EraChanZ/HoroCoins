@@ -3,139 +3,167 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 </head>
 <body id="body">
 <style>
-        .nav-item {
-            font-size: 20px;
-            margin-right: 10px;
-            margin-left: 10px;
-        }
-        body {
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-        .maininput {
-            margin-left: 700px;
-            margin-top: 200px;
-        }
-        .smth {
-            background:rgba(0,0,0,.7);
-        }
-        .inpt1 {
-            width: 300px;
-            height: 60px;
-            font-size: 30px;
-        }
-        .inpt2 {
-            width: 70px;
-            height: 60px;
-            font-size: 30px;
-        }
-        ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-            font-size: 30px;;
-        }
-        .minp {
-            width: 374px;
-            height:200px;
-        }
-        .mbtn {
-            width:374px;
-            height: 50px;
-        }
-        #dlg {
-            height: 100px;
-        }
-        #close {
-            margin-left: 190px;
-        }
-        @import url('//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+    .nav-item {
+        font-size: 20px;
+        margin-right: 10px;
+        margin-left: 10px;
+    }
 
-        .my-notify-info, .my-notify-success, .my-notify-warning, .my-notify-error {
-            padding:10px;
-            margin:10px 0;
+    body {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
 
-        }
-        .my-notify-info:before, .my-notify-success:before, .my-notify-warning:before, .my-notify-error:before {
-            font-family:FontAwesome;
-            font-style:normal;
-            font-weight:400;
-            speak:none;
-            display:inline-block;
-            text-decoration:inherit;
-            width:1em;
-            margin-right:.2em;
-            text-align:center;
-            font-variant:normal;
-            text-transform:none;
-            line-height:1em;
-            margin-left:.2em;
-            -webkit-font-smoothing:antialiased;
-            -moz-osx-font-smoothing:grayscale
-                }
+    .maininput {
+        margin-left: 500px;
+        margin-top: 150px;
+    }
 
-            .my-notify-info {
-                color: #00529B;
-                background-color: #BDE5F8;
-            }
-            .my-notify-success {
-                color: #4F8A10;
-                background-color: #DFF2BF;
-            }
-            .my-notify-warning {
-                color: #9F6000;
-                background-color: #FEEFB3;
-            }
-            .my-notify-error {
-                color: #D8000C;
-                background-color: #FFD2D2;
-            }
-            #dlg {
-                margin-left:750px;
-                margin-bottom: 400px;
-                padding-bottom: 100px;
-            }
-    </style>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    .smth {
+        background: rgba(0, 0, 0, .7);
+    }
+
+    .inpt1 {
+        width: 300px;
+        height: 60px;
+        font-size: 30px;
+    }
+
+    .inpt2 {
+        width: 70px;
+        height: 60px;
+        font-size: 30px;
+    }
+
+    ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+        font-size: 30px;;
+    }
+
+    .minp {
+        width: 374px;
+        height: 200px;
+    }
+
+    .mbtn {
+        width: 374px;
+        height: 50px;
+    }
+
+    #dlg {
+        height: 100px;
+    }
+
+    #close {
+        margin-left: 190px;
+    }
+
+    @import url('//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+
+    .my-notify-info, .my-notify-success, .my-notify-warning, .my-notify-error {
+        padding: 10px;
+        margin: 10px 0;
+
+    }
+
+    .my-notify-info:before, .my-notify-success:before, .my-notify-warning:before, .my-notify-error:before {
+        font-family: FontAwesome;
+        font-style: normal;
+        font-weight: 400;
+        speak: none;
+        display: inline-block;
+        text-decoration: inherit;
+        width: 1em;
+        margin-right: .2em;
+        text-align: center;
+        font-variant: normal;
+        text-transform: none;
+        line-height: 1em;
+        margin-left: .2em;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale
+    }
+
+    .my-notify-info {
+        color: #00529B;
+        background-color: #BDE5F8;
+    }
+
+    .my-notify-success {
+        color: #4F8A10;
+        background-color: #DFF2BF;
+    }
+
+    .my-notify-warning {
+        color: #9F6000;
+        background-color: #FEEFB3;
+    }
+
+    .my-notify-error {
+        color: #D8000C;
+        background-color: #FFD2D2;
+    }
+
+    #dlg {
+        margin-left: 750px;
+        margin-bottom: 400px;
+        padding-bottom: 100px;
+    }
+</style>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#" style="margin-right: 60px"><b>Horo-Coin/Store</b></a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="/perspage/">Личный кабинет<span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/menu/">Интернет-магазин</a>
-      </li>
-        <li class="nav-item">
-        <a class="nav-link" href="https://docs.google.com/spreadsheets/d/1ndGJI0FgSMpspUyK2l_DKTcCAhIQtYmfMzl7ug81urU/edit#gid=1476329653" target="_blank">Как заработать?</a>
-      </li>
-        {% if has_perm%}
-        <li class="nav-item">
-        <a class="nav-link" href="/teacher/">Учительская панель<span class="sr-only"></span></a>
-      </li>
-        {% endif %}
-        <li class="nav-item">
-        <b style="margin-left: 300px; font-size: 20px">{{ user.first_name }} {{ user.last_name }}</b>
-      </li>
-        <li class="nav-item">
-            <p style="margin-left: 10px; font-size: 20px;">Баланс : <b>{{ user.profile.balance }}</b><img style="margin-left: 10px" src="https://img.icons8.com/metro/50/000000/coins.png"height="30"></p>
-      </li>
-    </ul>
-  </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/perspage/">Личный кабинет<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/menu/">Интернет-магазин</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link"
+                   href="https://docs.google.com/spreadsheets/d/1ndGJI0FgSMpspUyK2l_DKTcCAhIQtYmfMzl7ug81urU/edit#gid=1476329653"
+                   target="_blank">Как заработать?</a>
+            </li>
+            {% if has_perm %}
+                <li class="nav-item">
+                    <a class="nav-link" href="/teacher/">Учительская панель<span class="sr-only"></span></a>
+                </li>
+            {% endif %}
+            <li class="nav-item">
+                <b style="margin-left: 150px; font-size: 20px">{{ user.first_name }} {{ user.last_name }}</b>
+            </li>
+            <li class="nav-item">
+                <p style="margin-left: 10px; font-size: 20px;">Баланс : <b>{{ user.profile.balance }}</b><img
+                        style="margin-left: 10px" src="https://img.icons8.com/metro/50/000000/coins.png" height="30">
+                </p>
+            </li>
+        </ul>
+    </div>
 </nav>
-<dialog id='dlg'  style="width: 300px; height: 100px; margin-top:100px">
+<dialog id='dlg' style="width: 300px; height: 100px; margin-top:100px">
     <h5>{{ error }}</h5>
     <button id="close">Закрыть</button>
 </dialog>
-<script type = text/javascript>
-    document.querySelector('#close').onclick = function() {
+<script type=text/javascript>
+    document.querySelector('#close').onclick = function () {
         document.getElementById("dlg").className = '';
         dialog.close();
     }
@@ -143,27 +171,28 @@
 {% if error %}
     {% if type == 's' %}
         <script>
-        var dialog = document.querySelector('dialog');
-        document.querySelector('dialog').classList.add("my-notify-success");
-        dialog.show();
+            var dialog = document.querySelector('dialog');
+            document.querySelector('dialog').classList.add("my-notify-success");
+            dialog.show();
         </script>
     {% endif %}
     {% if type == 'e' %}
         <script>
-        var dialog = document.querySelector('dialog');
-        document.querySelector('dialog').classList.add('my-notify-error');
-        dialog.show();
+            var dialog = document.querySelector('dialog');
+            document.querySelector('dialog').classList.add('my-notify-error');
+            dialog.show();
         </script>
     {% endif %}
 {% endif %}
-<div class="maininput">
-    <form method="post">
-        {% csrf_token %}
-        <input name='usr' class="inpt1" type="number"  placeholder="ID Ученика">
-        <input name='amount' class="inpt2" type="number"  placeholder="ХК"><br/>
-        <input name='rsn' class="minp" type="text" placeholder="Причина"/><br/>
-        <input name= 'gtv' class='mbtn' type="submit"/>
-    </form>
+        <div class="maininput">
+            <form method="post">
+                {% csrf_token %}
+                <input name='usr' class="inpt1" type="number" placeholder="ID Ученика">
+                <input name='amount' class="inpt2" type="number" placeholder="ХК"><br/>
+                <input name='rsn' class="minp" type="text" placeholder="Причина"/><br/>
+                <input name='gtv' class='mbtn' type="submit"/>
+            </form>
+        </div>
 </div>
 </body>
 </html>
